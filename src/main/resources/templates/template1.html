@@ -21,20 +21,17 @@
     <!---------------------------------------------------------------------------->
 
 </head>
-<body class="d-flex h-100 text-center text-white bg-dark">
+<body class="d-flex h-100 text-white bg-dark">
 
 <div class="d-flex w-100 h-100 p-3 mx-auto flex-column">
-    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <div class="cover-container d-flex w-100 h-50 p-3 mx-auto flex-column">
         <header class="mb-auto">
             <div>
-                <h3 class="float-md-start mb-0">Storage</h3>
+                <h3 class="float-md-start mb-0 text-light">Storage</h3>
                 <nav class="nav nav-masthead justify-content-center float-md-end">
                     <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
                     <a class="nav-link" th:href="@{/products}">Products</a>
                     <a class="nav-link" th:href="@{/locations}">Locations</a>
-                    <form class="form-inline form-navbar my-2 my-lg-0 order-2" action="https://themes.getbootstrap.com/shop/">
-                        <input class="form-control" name="s" type="text" placeholder="Search">
-                    </form>
                 </nav>
             </div>
         </header>
@@ -43,7 +40,7 @@
 
     <section layout:fragment="content1"></section>
 
-    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column container text-center">
         <footer class="mt-auto text-white-50">
             <p>Furnitures for your <a href="https://getbootstrap.com/" class="text-white">Comfort</a>, by <a href="https://twitter.com/mdo" class="text-white">@Storage</a>.</p>
         </footer>

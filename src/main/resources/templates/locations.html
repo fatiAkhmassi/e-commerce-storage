@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en" class="h-100"
-                xmlns:th="http://www.thymeleaf.org"
-                xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-                layout:decorate="template1">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,13 +20,54 @@
 </head>
 <body>
 <div layout:fragment="content1">
-    <main class="px-3">
-        <h1>This a locations page.</h1>
-        <p class="lead">Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
-        <p class="lead">
-            <a th:href="@{/products}" class="btn btn-lg btn-secondary fw-bold border-white bg-white">Go to our storages</a>
-        </p>
-    </main>
+    <div class="cover-container d-flex w-25 p-3 flex-column" style="margin-left: 15%;">
+        <header class="mb-auto">
+            <form method="get" th:action="@{locations}">
+                <div class="input-group">
+                    <input type="search" class="form-control rounded" name="keyword" th:value="${keyword}" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                    <button type="submit" class="btn btn-outline-light">search</button>
+                </div>
+            </form>
+        </header>
+    </div>
+    <div class="album py-2 bg-dark">
+        <div class="container">
+            <div class="card">
+                <div class="card-header text-dark">List of Localisations</div>
+                <div class="card-body">
+                    <Table class="table">
+                        <thead>
+                        <tr>
+                            <th>Adress</th>
+                            <th>Region</th>
+                            <th>City</th>
+                            <th>Country</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="l:${ListLocations}">
+                            <td th:text="${l.adress}"></td>
+                            <td th:text="${l.region}"></td>
+                            <td th:text="${l.ville}"></td>
+                            <td th:text="${l.pays}"></td>
+                        </tr>
+                        </tbody>
+                    </Table>
+                </div>
+            </div>
+            <ul class="nav nav-pills mt-5">
+                <li th:each="page,status:${pages}">
+                    <a th:class="${status.index==currentPage?'btn btn-light ms-1':'btn btn-outline-light ms-1'}"
+                       th:href="@{locations(page=${status.index},size=${currentSize},keyword=${keyword})}"
+                       th:text="${status.index}">
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
 </body>
 </html>
+
+
+
