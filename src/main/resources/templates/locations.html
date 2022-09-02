@@ -20,7 +20,7 @@
 </head>
 <body>
 <div layout:fragment="content1">
-    <div class="cover-container d-flex w-25 p-3 flex-column" style="margin-left: 15%;">
+    <div class="cover-container d-flex w-25 p-3 flex-column" style="margin-left: 10%;">
         <header class="mb-auto">
             <form method="get" th:action="@{locations}">
                 <div class="input-group">
@@ -50,6 +50,12 @@
                             <td th:text="${l.region}"></td>
                             <td th:text="${l.ville}"></td>
                             <td th:text="${l.pays}"></td>
+                            <td>
+                                <a onclick="return confirm('Are you sure you want to delete this Location?')" class="btn btn-sm btn-outline-secondary" th:href="@{deleteLocation(id=${p.id},page=${currentPage},size=${currentSize},keyword=${keyword})}">Delete</a>
+                            </td>
+                             <td>
+                                <a class="btn btn-sm btn-outline-secondary" th:href="@{/editLocation(id=${p.id},page=${currentPage},size=${currentSize},keyword=${keyword})}">Edit</a>
+                             </td>
                         </tr>
                         </tbody>
                     </Table>

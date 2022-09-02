@@ -9,7 +9,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -51,6 +53,25 @@ public class ProductController {
         model.addAttribute("keyword",keyword);
         return "editProduct";
     }
+
+    @GetMapping("/deleteProduct")
+    public String deleteProduct(Long id,int page,int size,String keyword){
+        productRepository.deleteById(id);
+        return "redirect:/products?page="+page+"&size="+size+"&keyword="+keyword;
+    }
+
+    @PostMapping("/edit")
+    public String edit(Product product, BindingResult bindingResult,int page,int size,String keyword){
+        if(bindingResult.hasErrors()) return "editProduct";
+        productRepository.save(product);
+        return "redirect:/products?page="+page+"&size="+size+"&keyword="+keyword;
+    }
+
+
+
+
+
+
 
 
     /*locations*/
