@@ -46,14 +46,14 @@ public class StoreApplication {
 			locationRepository.save(new Location(null,"Ouaziz Casablanca Maroc","Ouaziz","Casablanca","Maroc"));
 			locationRepository.save(new Location(null,"Lisasfa Casablanca Maroc","Lisasfa","Casablanca","Maroc"));
 
-			/*productLocationRepository.save(new ProductLocation(null,"A125F",1L,120F));
-			productLocationRepository.save(new ProductLocation(null,"A125F",2L,350F));
-			productLocationRepository.save(new ProductLocation(null,"52DF6",1L,410F));
-			productLocationRepository.save(new ProductLocation(null,"52DF6",3L,270F));
-			productLocationRepository.save(new ProductLocation(null,"52F21",2L,520F));
-			productLocationRepository.save(new ProductLocation(null,"52F21",3L,105F));
-			productLocationRepository.save(new ProductLocation(null,"SD2D5",1L,580F));
-			productLocationRepository.save(new ProductLocation(null,"SD2D5",2L,510F));*/
+			productLocationRepository.save(new ProductLocation(null,1L,1L,120F));
+			productLocationRepository.save(new ProductLocation(null,5L,2L,350F));
+			productLocationRepository.save(new ProductLocation(null,2L,1L,410F));
+			productLocationRepository.save(new ProductLocation(null,2L,3L,270F));
+			productLocationRepository.save(new ProductLocation(null,6L,2L,520F));
+			productLocationRepository.save(new ProductLocation(null,1L,3L,105F));
+			productLocationRepository.save(new ProductLocation(null,2L,1L,580F));
+			productLocationRepository.save(new ProductLocation(null,3L,2L,510F));
 		};
 	}
 

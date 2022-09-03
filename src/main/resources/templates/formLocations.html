@@ -22,13 +22,9 @@
 <div layout:fragment="content1">
     <div class="container">
         <div class="card">
-            <div class="card-header text-dark">Detailes location</div>
+            <div class="card-header text-dark">Add new locations</div>
             <div class="card-body p-3">
-                <form th:action="@{/editLocationInfo(page=${page},size=${size},keyword=${keyword})}" method="post">
-                    <div>
-                        <input type="text" class="form-control mt-2" name="id" th:value="${location.id}" placeholder="Id">
-                        <span class="text-danger" th:errors="${location.id}"></span>
-                    </div>
+                <form th:action="@{/saveLocations}" method="post">
                     <div>
                         <input type="text" class="form-control mt-2" name="adress" th:value="${location.adress}" placeholder="Adress">
                         <span class="text-danger" th:errors="${location.adress}"></span>
@@ -46,7 +42,7 @@
                         <span class="text-danger" th:errors="${location.pays}"></span>
                     </div>
                     <div class="position-relative">
-                        <button type="submit" class="btn btn-outline-secondary mt-2">Edit</button>
+                        <button type="submit" class="btn btn-outline-secondary mt-2">Save</button>
                         <a type="submit" class="btn btn-dark mt-2" th:href="@{/locations(page=${page},size=${size},keyword=${keyword})}">Cancel</a>
                     </div>
                 </form>

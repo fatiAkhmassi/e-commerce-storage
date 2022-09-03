@@ -15,34 +15,49 @@
     <!-- Custom styles for this template -->
     <link rel="stylesheet" type="text/css"  href="../static/css/cover.css" th:href="@{/css/cover.css}">
     <script src="/webjars/bootstrap/5.1.3/js/bootstrap.bundle.js"></script>
+    <script src="/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     <!---------------------------------------------------------------------------->
     <link rel='stylesheet' href='https://themes.getbootstrap.com/wp-content/themes/bootstrap-marketplace/style.css?ver=1590611604' />
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-67613229-3"></script>
     <!---------------------------------------------------------------------------->
 
 </head>
-<body class="d-flex h-100 text-white bg-dark">
+<body class="d-flex h-100">
 
 <div class="d-flex w-100 h-100 p-3 mx-auto flex-column">
     <div class="cover-container d-flex w-100 h-50 p-3 mx-auto flex-column">
         <header class="mb-auto">
-            <div>
-                <h3 class="float-md-start mb-0 text-light">Storage</h3>
-                <nav class="nav nav-masthead justify-content-center float-md-end">
-                    <a class="nav-link active" aria-current="page" th:href="@{/}">Home</a>
-                    <a class="nav-link" th:href="@{/products}">Products</a>
-                    <a class="nav-link" th:href="@{/locations}">Locations</a>
+                <nav class="navbar navbar-expand-sm navbar-light" >
+                    <div class="container-fluid">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a th:href="@{/}"><h3 class="float-md-start mb-0 ">Storage</h3></a>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav">
+                            <li class="nav-item"><a class="nav-link active" th:href="@{/}">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" th:href="@{/products}">Products</a></li>
+                            <li class="nav-item"><a class="nav-link" th:href="@{/locations}">Locations</a></li>
+                            <li class="nav-item"><a class="nav-link" th:href="@{/productionsLocations}">Productions Locations</a></li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">New Products&Locations</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" th:href="@{/formProducts}">New products</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/formLocations}">New locations</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/formProductsLocation}">Add products to location</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
                 </nav>
-            </div>
         </header>
     </div>
-
 
     <section layout:fragment="content1"></section>
 
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column container text-center">
-        <footer class="mt-auto text-white-50">
-            <p>Furnitures for your <a href="https://getbootstrap.com/" class="text-white">Comfort</a>, by <a href="https://twitter.com/mdo" class="text-white">@Storage</a>.</p>
+        <footer class="mt-auto ">
+            <p>Furnitures for your <a href="https://getbootstrap.com/" class="text-dark" ><b>Comfort</b></a>, by <a href="https://twitter.com/mdo" class="text-dark" ><b>@Storage</b></a>.</p>
         </footer>
     </div>
 </div>

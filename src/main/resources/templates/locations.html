@@ -26,13 +26,18 @@
                 <form method="get" th:action="@{locations}">
                     <div class="input-group">
                         <input type="search" class="form-control rounded" name="keyword" th:value="${keyword}" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                        <button type="submit" class="btn btn-outline-light">search</button>
+                        <button type="submit" class="btn btn-outline-secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
+                            </svg>
+                            <span class="visually-hidden">Button</span>
+                        </button>
                     </div>
                 </form>
             </header>
         </div>
     </div>
-    <div class="album py-2 bg-dark">
+    <div class="album py-2">
         <div class="container">
             <div class="card">
                 <div class="card-header text-dark">List of Localisations</div>
@@ -69,9 +74,6 @@
                                     <span class="visually-hidden">Button</span>
                                 </a>
                             </td>
-                             <!--<td>
-                                <a class="btn btn-sm btn-outline-secondary" th:href="@{/editLocation(id=${p.id},page=${currentPage},size=${currentSize},keyword=${keyword})}">Edit</a>
-                             </td>-->
                         </tr>
                         </tbody>
                     </Table>
@@ -79,7 +81,7 @@
             </div>
             <ul class="nav nav-pills mt-5">
                 <li th:each="page,status:${pages}">
-                    <a th:class="${status.index==currentPage?'btn btn-light ms-1':'btn btn-outline-light ms-1'}"
+                    <a th:class="${status.index==currentPage?'btn btn-secondary ms-1':'btn btn-outline-secondary ms-1'}"
                        th:href="@{locations(page=${status.index},size=${currentSize},keyword=${keyword})}"
                        th:text="${status.index}">
                     </a>
