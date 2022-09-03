@@ -60,8 +60,8 @@ public class ProductController {
         return "redirect:/products?page="+page+"&size="+size+"&keyword="+keyword;
     }
 
-    @PostMapping("/edit")
-    public String edit(Product product, BindingResult bindingResult,int page,int size,String keyword){
+    @PostMapping("/editProductInfo")
+    public String editProductInfo(Product product, BindingResult bindingResult,int page,int size,String keyword){
         if(bindingResult.hasErrors()) return "editProduct";
         productRepository.save(product);
         return "redirect:/products?page="+page+"&size="+size+"&keyword="+keyword;
@@ -87,5 +87,29 @@ public class ProductController {
         model.addAttribute("currentSize",size);
         model.addAttribute("keyword",keyword);
         return "locations";
+    }
+
+    @GetMapping("/deleteLocation")
+    public String deleteLocation(Long id,int page,int size,String keyword){
+        locationRepository.deleteById(id);
+        return "redirect:/locations?page="+page+"&size="+size+"&keyword="+keyword;
+    }
+
+    @GetMapping("/editLocation")
+    public String editLocation(Model model,Long id,int page,int size,String keyword){
+        Location location=locationRepository.findById(id).orElse(null);
+        if (location==null) throw  new RuntimeException("Product not found");
+        model.addAttribute("location",location);
+        model.addAttribute("page",page);
+        model.addAttribute("size",size);
+        model.addAttribute("keyword",keyword);
+        return "editLocation";
+    }
+
+    @PostMapping("/editLocationInfo")
+    public String editLocationInfo(Location location, BindingResult bindingResult,int page,int size,String keyword){
+        if(bindingResult.hasErrors()) return "editProduct";
+        locationRepository.save(location);
+        return "redirect:/locations?page="+page+"&size="+size+"&keyword="+keyword;
     }
 }

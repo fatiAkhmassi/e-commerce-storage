@@ -20,15 +20,17 @@
 </head>
 <body>
 <div layout:fragment="content1">
-    <div class="cover-container d-flex w-25 p-3 flex-column" style="margin-left: 10%;">
-        <header class="mb-auto">
-            <form method="get" th:action="@{products}">
-                <div class="input-group">
-                    <input type="search" class="form-control rounded" name="keyword" th:value="${keyword}" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                    <button type="submit" class="btn btn-outline-light">search</button>
-                </div>
-            </form>
-        </header>
+    <div class="d-flex p-3 mx-auto flex-column" style="width: 70%!important;">
+        <div class="cover-container d-flex flex-column" style="width: 33%!important;">
+            <header class="mb-auto">
+                <form method="get" th:action="@{products}">
+                    <div class="input-group">
+                        <input type="search" class="form-control rounded" name="keyword" th:value="${keyword}" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                        <button type="submit" class="btn btn-outline-light">search</button>
+                    </div>
+                </form>
+            </header>
+        </div>
     </div>
     <div class="album py-2 bg-dark">
         <div class="container">
