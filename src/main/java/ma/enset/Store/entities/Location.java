@@ -6,14 +6,14 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.util.HashSet;
-import java.util.Set;
+import java.io.Serializable;
+import java.util.*;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Location {
+public class Location implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -29,4 +29,35 @@ public class Location {
 
     @NotEmpty
     private String pays;
+
+
+    @OneToMany(
+            mappedBy = "location",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<ProductLocation> products=new ArrayList<>();
+
+
+    public void addProduct(Product product,Float quantite){
+        ProductLocation productLocation = new ProductLocation(product, this,quantite);
+        products.add(productLocation);
+        product.getLocations().add(productLocation);
+    }
+
+    public void removeProduct(Product product) {
+        for (Iterator<ProductLocation> iterator = products.iterator();
+             iterator.hasNext(); ) {
+            ProductLocation productLocation = iterator.next();
+
+            if (productLocation.getLocation().equals(this) &&
+                    productLocation.getProduct().equals(product)) {
+                iterator.remove();
+                productLocation.getProduct().getLocations().remove(productLocation);
+                productLocation.setLocation(null);
+                productLocation.setProduct(null);
+            }
+        }
+    }
+
 }

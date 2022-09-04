@@ -12,11 +12,14 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
 import java.util.List;
 
 @Controller
@@ -170,8 +173,12 @@ public class ProductController {
 
     @PostMapping("/saveProductsLocation")
     public String saveProductsLocation(@Valid ProductLocation productLocation,BindingResult bindingResult){
-        if (bindingResult.hasErrors()) return "formProductsLocation";
-        productLocationRepository.save(productLocation);
+        /*if (bindingResult.hasErrors()) return "formProductsLocation";
+        Product product=productRepository.findById(productLocation.getProduct().getId()).get();
+        Location location=locationRepository.findById(productLocation.getLocation().getId()).get();
+        productLocation.setProduct(product);
+        //productLocation.setLocation(location);
+        productLocationRepository.save(productLocation);*/
         return "redirect:/formProductsLocation";
     }
 
@@ -188,4 +195,30 @@ public class ProductController {
         model.addAttribute("keyword",keyword);
         return "productionsLocations";
     }
+
+
+    @RequestMapping(value="/savefile",method= RequestMethod.POST)
+    public ModelAndView upload(@RequestParam CommonsMultipartFile file, HttpSession session){
+        String path=session.getServletContext().getRealPath("/");
+        String filename=file.getOriginalFilename();
+
+        System.out.println(path+" "+filename);
+        try{
+            byte barr[]=file.getBytes();
+
+            BufferedOutputStream bout=new BufferedOutputStream(
+                    new FileOutputStream(path+"/"+filename));
+            bout.write(barr);
+            bout.flush();
+            bout.close();
+
+        }catch(Exception e){System.out.println(e);}
+        return new ModelAndView("upload-success","filename",path+"/"+filename);
+    }
+
+    @GetMapping("/uploadFile")
+    public String uploadFile(){
+        return "uploadFile";
+    }
+
 }

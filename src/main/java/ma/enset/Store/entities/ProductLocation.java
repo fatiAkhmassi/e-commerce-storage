@@ -7,20 +7,34 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-public class ProductLocation {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Embeddable
+public class ProductLocation implements Serializable {
+    @EmbeddedId
+    private ProductLocationId id;
 
     //@DecimalMin("0")
-    private Long product_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("productId")
+    private Product product;
 
     //@DecimalMin("0")
-    private Long location_id;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("locationId")
+    private Location location;
 
     private Float quantite;
+
+
+    public  ProductLocation(Product product,Location location,float quantite){
+        this.id=new ProductLocationId(null,product,location);
+        this.product=product;
+        this.location=location;
+        this.quantite=quantite;
+    }
+
 }
