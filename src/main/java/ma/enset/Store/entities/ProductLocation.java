@@ -38,8 +38,8 @@ public class ProductLocation implements Serializable {
     private Date dateLastModified;
 
     public ProductLocation(Product product, Location location, Float quantite, Date dateLastModified) {
-        primaryKey.setLocation(location);
-        primaryKey.setProduct(product);
+        this.primaryKey.setLocation(location);
+        this.primaryKey.setProduct(product);
         this.product = product;
         this.location = location;
         this.quantite = quantite;

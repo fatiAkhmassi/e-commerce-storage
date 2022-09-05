@@ -1,9 +1,7 @@
 package ma.enset.Store.web;
 
 import lombok.AllArgsConstructor;
-import ma.enset.Store.entities.Location;
-import ma.enset.Store.entities.Product;
-import ma.enset.Store.entities.ProductLocation;
+import ma.enset.Store.entities.*;
 import ma.enset.Store.repositories.LocationRepository;
 import ma.enset.Store.repositories.ProductLocationRepository;
 import ma.enset.Store.repositories.ProductRepository;
@@ -47,20 +45,18 @@ public class ProductLocationController {
     public String formProductsLocation(Model model){
         List<Product> listProduct = productRepository.findAll();
         List<Location> listLocation = locationRepository.findAll();
-        model.addAttribute("productLocation",new ProductLocation());
-        model.addAttribute("listProduct",listProduct);
+        // model.addAttribute("productLocation",new ProductLocation());
+        model.addAttribute("form",new FormHolder());
         model.addAttribute("listLocation",listLocation);
+        model.addAttribute("listProduct",listProduct);
         return "formProductsLocation";
     }
 
     @PostMapping("/saveProductsLocation")
-    public String saveProductsLocation(@Valid ProductLocation productLocation,Product product,Location location,BindingResult bindingResult){
+    public String saveProductsLocation(@Valid FormHolder fh, BindingResult bindingResult){
         if (bindingResult.hasErrors()) return "formProductsLocation";
-        /*Product product=productRepository.findById(productLocation.getProduct().getId()).get();
-        Location location=locationRepository.findById(productLocation.getLocation().getId()).get();
-        productLocation.setProduct(product);
-        productLocation.setLocation(location);*/
-        productLocationRepository.save(productLocation);
+        ProductLocation pl = new ProductLocation(fh.getProduct(),fh.getLocation(),fh.getQte(),fh.getDateLastModified());
+        productLocationRepository.save(pl);
         return "redirect:/formProductsLocation";
     }
 
