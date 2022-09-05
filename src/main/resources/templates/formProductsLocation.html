@@ -28,20 +28,24 @@
                     <div>
                         <select class="form-select mt-2">
                             <option class="text-secondary">Select product reference</option>
-                            <option th:each="p:${listProduct}" name="product_id" th:value="${p.id}" th:text="${p.ref}"></option>
+                            <option th:each="p:${listProduct}" name="PRODUCT_ID " th:value="${p.PRODUCT_ID}" th:text="${p.ref}"></option>
                         </select>
-                        <span class="text-danger" th:errors="${productLocation.product_id}"></span>
+                        <span class="text-danger" th:errors="${productLocation.product}"></span>
                     </div>
                     <div>
                         <select class="form-select mt-2">
                             <option class="text-secondary">Select location id</option>
-                            <option th:each="l:${listLocation}" name="location_id" th:value="${l.id}" th:text="${l.adress}"></option>
+                            <option th:each="l:${listLocation}" name="LOCATION_ID" th:value="${l.LOCATION_ID}" th:text="${l.adress}"></option>
                         </select>
-                        <span class="text-danger" th:errors="${productLocation.location_id}"></span>
+                        <span class="text-danger" th:errors="${productLocation.location}"></span>
                     </div>
                     <div>
-                        <input type="text" class="form-control mt-2" name="description" th:value="${productLocation.quantite}" placeholder="Quantite">
+                        <input type="text" class="form-control mt-2" name="quantite" th:value="${productLocation.quantite}" placeholder="Quantite">
                         <span class="text-danger" th:errors="${productLocation.quantite}"></span>
+                    </div>
+                    <div>
+                        <input type="date" class="form-control mt-2" name="dateLastModified" th:value="${productLocation.dateLastModified}" placeholder="Last Modified">
+                        <span class="text-danger" th:errors="${productLocation.dateLastModified}"></span>
                     </div>
                     <div class="position-relative">
                         <button type="submit" class="btn btn-outline-secondary mt-2">Save</button>
@@ -50,7 +54,6 @@
                 </form>
             </div>
         </div>
-
     </div>
 </div>
 </body>

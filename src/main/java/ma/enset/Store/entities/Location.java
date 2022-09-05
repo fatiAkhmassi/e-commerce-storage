@@ -1,5 +1,6 @@
 package ma.enset.Store.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.*;
 @AllArgsConstructor
 public class Location implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "LOCATION_ID")
     private Long id;
 
     @NotEmpty
@@ -30,34 +32,20 @@ public class Location implements Serializable {
     @NotEmpty
     private String pays;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "primaryKey.location",
+            cascade = CascadeType.ALL)
+    private Set<ProductLocation> productLocations=new HashSet<>();
 
-    @OneToMany(
-            mappedBy = "location",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private List<ProductLocation> products=new ArrayList<>();
-
-
-    public void addProduct(Product product,Float quantite){
-        ProductLocation productLocation = new ProductLocation(product, this,quantite);
-        products.add(productLocation);
-        product.getLocations().add(productLocation);
+    public void addProductLocation(ProductLocation productLocation){
+        this.productLocations.add(productLocation);
     }
 
-    public void removeProduct(Product product) {
-        for (Iterator<ProductLocation> iterator = products.iterator();
-             iterator.hasNext(); ) {
-            ProductLocation productLocation = iterator.next();
 
-            if (productLocation.getLocation().equals(this) &&
-                    productLocation.getProduct().equals(product)) {
-                iterator.remove();
-                productLocation.getProduct().getLocations().remove(productLocation);
-                productLocation.setLocation(null);
-                productLocation.setProduct(null);
-            }
-        }
+    public Location(String adress, String region, String ville, String pays) {
+        this.adress = adress;
+        this.region = region;
+        this.ville = ville;
+        this.pays = pays;
     }
-
 }

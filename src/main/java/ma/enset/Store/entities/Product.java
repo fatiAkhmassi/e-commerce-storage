@@ -1,5 +1,6 @@
 package ma.enset.Store.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class Product implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "PRODUCT_ID")
     private Long id;
 
     @NotEmpty
@@ -36,10 +38,20 @@ public class Product implements Serializable {
     @DecimalMin("1")
     private Float price;
 
-    @OneToMany(
-            mappedBy = "product",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private List<ProductLocation> locations=new ArrayList<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "primaryKey.product",
+            cascade = CascadeType.ALL)
+    private List<ProductLocation> productLocations=new ArrayList<>();
+
+    public void addProductLocation(ProductLocation productLocation){
+        this.productLocations.add(productLocation);
+    }
+
+
+    public Product(String ref, String label, String description, Float price) {
+        this.ref = ref;
+        this.label = label;
+        this.description = description;
+        this.price = price;
+    }
 }

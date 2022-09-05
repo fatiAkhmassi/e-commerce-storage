@@ -7,19 +7,14 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Embeddable
 public class ProductLocationId implements Serializable {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    //@DecimalMin("0")
-    private Product productId;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Product product;
 
-    //@DecimalMin("0")
-    private Location locationId;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Location location;
 
 }

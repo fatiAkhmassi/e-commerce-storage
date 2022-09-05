@@ -15,6 +15,7 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 
 import javax.validation.Valid;
+import java.util.Date;
 
 @SpringBootApplication
 public class StoreApplication {
@@ -32,74 +33,63 @@ public class StoreApplication {
 	}*/
 	@Bean
 	CommandLineRunner commandLineRunner(ProductRepository productRepository,LocationRepository locationRepository,ProductLocationRepository productLocationRepository){
+		Product p1=new Product("A125F","Table","Table à manger de boi",4000F);
+		Product p2=new Product("52F23","Canapé","Canapé blanc pour 3 person",6500F);
+		Product p3=new Product("52DF6","Tapi","tapi gray",3400F);
+		Product p4=new Product("SD2D5","Table","Table à manger de boi",5600F);
+		Product p5=new Product("A135F","Table","Table à manger de boi",4000F);
+		Product p6=new Product("54F22","Canapé","Canapé blanc pour 3 person",6500F);
+		Product p7=new Product("52DF7","Tapi","tapi gray",3400F);
+		Product p8=new Product("SD2D4","Table","Table à manger de boi",5600F);
+		Product p9=new Product("A155F","Table","Table à manger de boi",4000F);
+		Product p10=new Product("56F24","Canapé","Canapé blanc pour 3 person",6500F);
+		Product p11=new Product("52DF9","Tapi","tapi gray",3400F);
+		Product p12=new Product("SD2D6","Table","Table à manger de boi",5600F);
+
+		Location l1=new Location("Mhamid Marrakech Maroc","Mhamid","Marrakech","Maroc");
+		Location l2=new Location("Massira Marrakech Maroc","Massira","Marrakech","Maroc");
+		Location l3=new Location("Mazar Marrakech Maroc","Mazar","Marrakech","Maroc");
+		Location l4=new Location("Azli Marrakech Maroc","Azli","Marrakech","Maroc");
+		Location l5=new Location("Ain dyab Casablanca Maroc","Ain dyab","Casablanca","Maroc");
+		Location l6=new Location("Alfa Casablanca Maroc","Alfa","Casablanca","Maroc");
+		Location l7=new Location("Ouaziz Casablanca Maroc","Ouaziz","Casablanca","Maroc");
+		Location l8=new Location("Lisasfa Casablanca Maroc","Lisasfa","Casablanca","Maroc");
+
+
+		ProductLocation pl1=new ProductLocation(p1,l2,150F,new Date());
+		ProductLocation pl2=new ProductLocation(p2,l2,320F,new Date());
+		ProductLocation pl3=new ProductLocation(p2,l6,410F,new Date());
+		ProductLocation pl4=new ProductLocation(p2,l5,20F,new Date());
+
+
 		return args -> {
-			/*productRepository.save(new Product(null,"A125F","Table","Table à manger de boi",4000F));
-			productRepository.save(new Product(null,"52F23","Canapé","Canapé blanc pour 3 person",6500F));
-			productRepository.save(new Product(null,"52DF6","Tapi","tapi gray",3400F));
-			productRepository.save(new Product(null,"SD2D5","Table","Table à manger de boi",5600F));
-			productRepository.save(new Product(null,"A135F","Table","Table à manger de boi",4000F));
-			productRepository.save(new Product(null,"54F22","Canapé","Canapé blanc pour 3 person",6500F));
-			productRepository.save(new Product(null,"52DF7","Tapi","tapi gray",3400F));
-			productRepository.save(new Product(null,"SD2D4","Table","Table à manger de boi",5600F));
-			productRepository.save(new Product(null,"A155F","Table","Table à manger de boi",4000F));
-			productRepository.save(new Product(null,"56F24","Canapé","Canapé blanc pour 3 person",6500F));
-			productRepository.save(new Product(null,"52DF9","Tapi","tapi gray",3400F));
-			productRepository.save(new Product(null,"SD2D6","Table","Table à manger de boi",5600F));
 
-			locationRepository.save(new Location(null,"Mhamid Marrakech Maroc","Mhamid","Marrakech","Maroc"));
-			locationRepository.save(new Location(null,"Massira Marrakech Maroc","Massira","Marrakech","Maroc"));
-			locationRepository.save(new Location(null,"Mazar Marrakech Maroc","Mazar","Marrakech","Maroc"));
-			locationRepository.save(new Location(null,"Azli Marrakech Maroc","Azli","Marrakech","Maroc"));
-			locationRepository.save(new Location(null,"Ain dyab Casablanca Maroc","Ain dyab","Casablanca","Maroc"));
-			locationRepository.save(new Location(null,"Alfa Casablanca Maroc","Alfa","Casablanca","Maroc"));
-			locationRepository.save(new Location(null,"Ouaziz Casablanca Maroc","Ouaziz","Casablanca","Maroc"));
-			locationRepository.save(new Location(null,"Lisasfa Casablanca Maroc","Lisasfa","Casablanca","Maroc"));*/
+			productRepository.save(p1);
+			productRepository.save(p2);
+			productRepository.save(p3);
+			productRepository.save(p4);
+			productRepository.save(p5);
+			productRepository.save(p6);
+			productRepository.save(p7);
+			productRepository.save(p8);
+			productRepository.save(p9);
+			productRepository.save(p10);
+			productRepository.save(p11);
+			productRepository.save(p12);
 
-			/*productLocationRepository.save(new ProductLocation(null,1L,new Product(null,"A125F","Table","Table à manger de boi",4000F),1L,new Location(null,"Mhamid Marrakech Maroc","Mhamid","Marrakech","Maroc"),120F));
-			productLocationRepository.save(new ProductLocation(null,5L,new Product(null,"A135F","Table","Table à manger de boi",4000F),2L,new Location(null,"Massira Marrakech Maroc","Massira","Marrakech","Maroc"),350F));
-			productLocationRepository.save(new ProductLocation(null,2L,new Product(null,"52F23","Canapé","Canapé blanc pour 3 person",6500F),2L,new Location(null,"Massira Marrakech Maroc","Massira","Marrakech","Maroc"),350F));
-			productLocationRepository.save(new ProductLocation(null,2L,new Product(null,"52F23","Canapé","Canapé blanc pour 3 person",6500F),1L,new Location(null,"Mhamid Marrakech Maroc","Mhamid","Marrakech","Maroc"),120F));
-			productLocationRepository.save(new ProductLocation(null,6L,new Product(null,"54F22","Canapé","Canapé blanc pour 3 person",6500F),1L,new Location(null,"Mhamid Marrakech Maroc","Mhamid","Marrakech","Maroc"),120F));
-			productLocationRepository.save(new ProductLocation(null,1L,new Product(null,"A125F","Table","Table à manger de boi",4000F),2L,new Location(null,"Massira Marrakech Maroc","Massira","Marrakech","Maroc"),350F));
-			productLocationRepository.save(new ProductLocation(null,2L,new Product(null,"52F23","Canapé","Canapé blanc pour 3 person",6500F),1L,new Location(null,"Mazar Marrakech Maroc","Mazar","Marrakech","Maroc"),580F));
-			productLocationRepository.save(new ProductLocation(null,3L,new Product(null,"52DF6","Tapi","tapi gray et blanc raye",3400F),3L,new Location(null,"Mazar Marrakech Maroc","Mazar","Marrakech","Maroc"),510F));
+			locationRepository.save(l1);
+			locationRepository.save(l2);
+			locationRepository.save(l3);
+			locationRepository.save(l4);
+			locationRepository.save(l5);
+			locationRepository.save(l6);
+			locationRepository.save(l7);
+			locationRepository.save(l8);
 
-			/*productLocationRepository.save(new ProductLocation(null,1L,null,1L,null,120F));
-			productLocationRepository.save(new ProductLocation(null,5L,null,2L,null,350F));
-			productLocationRepository.save(new ProductLocation(null,2L,null,2L,null,350F));
-			productLocationRepository.save(new ProductLocation(null,2L,null,1L,null,120F));
-			productLocationRepository.save(new ProductLocation(null,6L,null,1L,null,120F));
-			productLocationRepository.save(new ProductLocation(null,1L,null,2L,null,350F));
-			productLocationRepository.save(new ProductLocation(null,2L,null,1L,null,580F));
-			productLocationRepository.save(new ProductLocation(null,3L,null,3L,null,510F));*/
+			productLocationRepository.save(pl1);
+			productLocationRepository.save(pl2);
+			productLocationRepository.save(pl3);
+			productLocationRepository.save(pl4);
 		};
 	}
-
-	/*@Bean
-	CommandLineRunner commandLineRunner(LocationRepository locationRepository){
-		return args -> {
-			locationRepository.save(new Location(null,"Mhamid Marrakech Maroc","Mhamid","Marrakech","Maroc"));
-			locationRepository.save(new Location(null,"Massira Marrakech Maroc","Massira","Marrakech","Maroc"));
-			locationRepository.save(new Location(null,"Mazar Marrakech Maroc","Mazar","Marrakech","Maroc"));
-			locationRepository.save(new Location(null,"Azli Marrakech Maroc","Azli","Marrakech","Maroc"));
-			locationRepository.save(new Location(null,"Ain dyab Marrakech Maroc","Ain dyab","Casablanca","Maroc"));
-			locationRepository.save(new Location(null,"Alfa Casablanca Maroc","Alfa","Casablanca","Maroc"));
-			locationRepository.save(new Location(null,"Ouaziz Marrakech Maroc","Ouaziz","Casablanca","Maroc"));
-			locationRepository.save(new Location(null,"Lisasfa Marrakech Maroc","Lisasfa","Casablanca","Maroc"));
-		};
-	}
-
-	@Bean
-	CommandLineRunner commandLineRunner(ProductLocationRepository productLocationRepository){
-		return args -> {
-			productLocationRepository.save(new ProductLocation(null,"A125F",1L,120F));
-			productLocationRepository.save(new ProductLocation(null,"A125F",2L,350F));
-			productLocationRepository.save(new ProductLocation(null,"52DF6",1L,410F));
-			productLocationRepository.save(new ProductLocation(null,"52DF6",3L,270F));
-			productLocationRepository.save(new ProductLocation(null,"52F21",2L,520F));
-			productLocationRepository.save(new ProductLocation(null,"52F21",3L,105F));
-			productLocationRepository.save(new ProductLocation(null,"SD2D5",1L,580F));
-			productLocationRepository.save(new ProductLocation(null,"SD2D5",2L,510F));
-		};
-	}*/
 }
