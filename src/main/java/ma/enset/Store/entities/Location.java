@@ -34,6 +34,7 @@ public class Location implements Serializable {
     @NotEmpty
     private String pays;
 
+    @Transient
     @JsonIgnore
     @OneToMany(mappedBy = "primaryKey.location",
             cascade = CascadeType.ALL)

@@ -46,19 +46,96 @@ public class ProductLocationController {
         List<Product> listProduct = productRepository.findAll();
         List<Location> listLocation = locationRepository.findAll();
         // model.addAttribute("productLocation",new ProductLocation());
-        model.addAttribute("form",new FormHolder());
+        model.addAttribute("form",new ProductLocationFormHolder());
         model.addAttribute("listLocation",listLocation);
         model.addAttribute("listProduct",listProduct);
         return "formProductsLocation";
     }
 
     @PostMapping("/saveProductsLocation")
-    public String saveProductsLocation(@Valid FormHolder fh, BindingResult bindingResult){
+    public String saveProductsLocation(@Valid ProductLocationFormHolder fh, BindingResult bindingResult){
+        //verifivation of excesting
+        ProductLocationId productLocationId=new ProductLocationId(fh.getProduct(),fh.getLocation());
+        ProductLocation productLocation=productLocationRepository.findById(productLocationId).orElse(null);
+        if (productLocation!=null) throw new RuntimeException("This product "+fh.getProduct().getRef()+"is alredy in this location "+fh.getLocation().getAdress());
+
         if (bindingResult.hasErrors()) return "formProductsLocation";
         ProductLocation pl = new ProductLocation(fh.getProduct(),fh.getLocation(),fh.getQte(),fh.getDateLastModified());
         productLocationRepository.save(pl);
         return "redirect:/formProductsLocation";
     }
+
+    @GetMapping("/editProductsLocation")
+    public String editProductsLocation(Model model,Long productId,long locationId,int page,int size,String keyword){
+        Product product=productRepository.findById(productId).orElse(null);
+        Location location=locationRepository.findById(locationId).orElse(null);
+        ProductLocationId productLocationId=new ProductLocationId(product,location);
+
+        ProductLocation productLocation=productLocationRepository.findById(productLocationId).orElse(null);
+        if (productLocation==null) throw  new RuntimeException("Product not found in this location");
+        model.addAttribute("productLocation",productLocation);
+        model.addAttribute("page",page);
+        model.addAttribute("size",size);
+        model.addAttribute("keyword",keyword);
+        return "editProductsLocation";
+    }
+
+    @PostMapping("/editProductsLocationInfo")
+    public String editProductsLocationInfo(@Valid ProductLocationFormHolder fh, BindingResult bindingResult,int page,int size,String keyword){
+        if (bindingResult.hasErrors()) return "editProductsLocation";
+        ProductLocation pl = new ProductLocation(fh.getProduct(),fh.getLocation(),fh.getQte(),fh.getDateLastModified());
+        productLocationRepository.save(pl);
+        return "redirect:/productionsLocations?page="+page+"&size="+size+"&keyword="+keyword;
+    }
+
+    @GetMapping("/deleteProductLocation")
+    public String deleteProductLocation(Long productId,long locationId,int page,int size,String keyword){
+        Product product=productRepository.findById(productId).orElse(null);
+        Location location=locationRepository.findById(locationId).orElse(null);
+        ProductLocationId productLocationId=new ProductLocationId(product,location);
+        productLocationRepository.deleteById(productLocationId);
+        return "redirect:/productionsLocations?page="+page+"&size="+size+"&keyword="+keyword;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     /*@RequestMapping(value="/savefile",method= RequestMethod.POST)

@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.springframework.format.annotation.NumberFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
@@ -40,10 +40,13 @@ public class Product implements Serializable {
     @DecimalMin("1")
     private Float price;
 
+    private MultipartFile productImage;
+
+    @Transient
     @JsonIgnore
     @OneToMany(mappedBy = "primaryKey.product",
             cascade = CascadeType.ALL)
-    private List<ProductLocation> productLocations=new ArrayList<>();
+    private Set<ProductLocation> productLocations=new HashSet<>();
 
     public void addProductLocation(ProductLocation productLocation){
         this.productLocations.add(productLocation);

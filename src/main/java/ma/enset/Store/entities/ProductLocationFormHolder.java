@@ -15,10 +15,11 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @ToString
-public class FormHolder {
+public class ProductLocationFormHolder {
     private Product product;
     private Location location;
     private Float qte;
+
     @Column(name = "LAST_MODIFIED")
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")

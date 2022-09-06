@@ -45,6 +45,7 @@ public class LocationController {
 
     @GetMapping("/deleteLocation")
     public String deleteLocation(Long id,int page,int size,String keyword){
+        //Verification if th location excests in productLocation
         locationRepository.deleteById(id);
         return "redirect:/locations?page="+page+"&size="+size+"&keyword="+keyword;
     }

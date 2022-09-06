@@ -9,6 +9,8 @@ import java.io.Serializable;
 
 @Data
 @Embeddable
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProductLocationId implements Serializable {
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -16,5 +18,6 @@ public class ProductLocationId implements Serializable {
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Location location;
+
 
 }
