@@ -1,5 +1,4 @@
 <!doctype html>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags%>
 <html lang="en" class="h-100"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -43,7 +42,7 @@
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 <div class="col" th:each="p:${ListProducts}">
                     <div class="card shadow-sm">
-                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Storage</text></svg>
+                        <img th:src="'http://localhost:8080/files/' + ${p.productImage}" class="bd-placeholder-img card-img-top" width="100%" height="225" alt="">
                         <div class="card-body">
                             <h6 class="text-dark" th:text="${p.label}"></h6>
                             <h6 class="text-dark" th:text="${p.ref}"></h6>

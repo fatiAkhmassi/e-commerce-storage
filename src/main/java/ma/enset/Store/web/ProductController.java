@@ -8,10 +8,15 @@ import ma.enset.Store.repositories.LocationRepository;
 import ma.enset.Store.repositories.ProductLocationRepository;
 import ma.enset.Store.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ResourceUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,15 +30,20 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
 @AllArgsConstructor
 public class ProductController {
 
-    @Autowired
-    ServletContext servletContext;
     private ProductRepository productRepository;
+    private final Path rootLocation=Paths.get("upload-dir");
+
+
 
 
     /*products*/
@@ -48,6 +58,7 @@ public class ProductController {
                             @RequestParam(name = "size",defaultValue = "3") int size,
                             @RequestParam(name = "keyword",defaultValue = "") String keyword){
         Page<Product> products = productRepository.findByLabelContainsOrRefContains(keyword,keyword,PageRequest.of(page,size));
+        if (products==null) return "index";
         model.addAttribute("ListProducts",products.getContent());
         model.addAttribute("pages",new int[products.getTotalPages()]);
         model.addAttribute("currentPage",page);
@@ -88,14 +99,42 @@ public class ProductController {
     }
 
     @PostMapping("/saveProducts")
-    public String saveProducts(@Valid Product product,BindingResult bindingResult) throws IOException {
-        if (bindingResult.hasErrors()) return "formProducts";
-        MultipartFile multipartFile=product.getProductImage();
-        if (multipartFile!=null || !multipartFile.isEmpty()){
-            String fileName=servletContext.getRealPath("/")+"resources\\img\\"+multipartFile.getOriginalFilename();
-            multipartFile.transferTo(new File(fileName));
+    public String saveProducts(@Valid Product product,MultipartFile productImageFile,BindingResult bindingResult) throws IOException {
+        /*if (bindingResult.hasErrors()) return "formProducts";
+        if (productImageFile!=null || !productImageFile.isEmpty()){
+            ClassLoader classLoader = getClass().getClassLoader();
+            File file = new File(classLoader.getResource(".").getFile() + "/static/img/"+productImageFile.getOriginalFilename());
+            productImageFile.transferTo(file);
+            product.setProductImage(file.getAbsolutePath());
         }
         productRepository.save(product);
-        return "redirect:/formProducts";
+        return "redirect:/formProducts";*/
+
+        try {
+            final String imagePath = "upload-dir/"; //path
+            FileOutputStream output = new FileOutputStream(imagePath+productImageFile.getOriginalFilename());
+            output.write(productImageFile.getBytes());
+            // save product to db
+            product.setProductImage(productImageFile.getOriginalFilename());
+            productRepository.save(product);
+
+            return "formProducts";
+        }
+        catch (Exception e) {
+            throw new RuntimeException("Failed to store file.", e);
+        }
+    }
+
+    @GetMapping("/files/{filename:.+}")
+    @ResponseBody
+    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+        Path fpath = rootLocation.resolve(filename);
+        try {
+            Resource file = new UrlResource(fpath.toUri());
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+                    "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
