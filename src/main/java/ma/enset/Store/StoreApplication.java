@@ -34,11 +34,11 @@ public class StoreApplication {
 	@Bean
 	CommandLineRunner commandLineRunner(ProductRepository productRepository,LocationRepository locationRepository,ProductLocationRepository productLocationRepository){
 		Product p1=new Product("A125F","Table","Table à manger de boi",4000F);
-		p1.setProductImage("oriol-pascual-wC7yYoTA9FM-unsplash (1).jpg");
+		p1.setProductImage("oriol-pascual-wC7yYoTA9FM-unsplash.jpg");
 		Product p2=new Product("52F23","Canapé","Canapé blanc pour 3 person",6500F);
-		p2.setProductImage("oriol-pascual-wC7yYoTA9FM-unsplash (1).jpg");
+		p2.setProductImage("oriol-pascual-aeqfZZeCsG8-unsplash.jpg");
 		Product p3=new Product("52DF6","Tapi","tapi gray",3400F);
-		p3.setProductImage("oriol-pascual-wC7yYoTA9FM-unsplash (1).jpg");
+		p3.setProductImage("oriol-pascual-aeqfZZeCsG9-unsplash.jpg");
 		/*Product p4=new Product("SD2D5","Table","Table à manger de boi",5600F);
 		p4.setProductImage("/home/fati/java-workspace/e-commerce-storage/target/classes/static/img/oriol-pascual-wC7yYoTA9FM-unsplash (1).jpg");
 		Product p5=new Product("A135F","Table","Table à manger de boi",4000F);
