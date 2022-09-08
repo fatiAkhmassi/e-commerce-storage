@@ -16,6 +16,17 @@
     <!-- Custom styles for this template -->
     <link rel="stylesheet" type="text/css"  href="../static/css/cover.css" th:href="@{/css/cover.css}">
     <script src="/webjars/bootstrap/5.1.3/js/bootstrap.bundle.js"></script>
+    <style>
+        .error-msg{
+            background: #b11e1e;
+            color: white;
+            font-size: smaller;
+            padding: 0.7%
+        }
+        .clear-msg{
+            background: #fff;
+        }
+    </style>
 
 </head>
 <body>
@@ -39,7 +50,9 @@
     </div>
     <div class="album py-2">
         <div class="container">
-            <div class="card">
+            <div th:class="${error==null?'clear-msg':'error-msg'}"><p th:text="${error}"></p></div>
+            <!--Cancel button   ################################################################################-->
+            <div class="card mt-2">
                 <div class="card-header text-dark">List of Localisations</div>
                 <div class="card-body">
                     <Table class="table">

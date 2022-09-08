@@ -34,24 +34,24 @@ public class StoreApplication {
 	@Bean
 	CommandLineRunner commandLineRunner(ProductRepository productRepository,LocationRepository locationRepository,ProductLocationRepository productLocationRepository){
 		Product p1=new Product("A125F","Table","Table à manger de boi",4000F);
-		p1.setProductImage("oriol-pascual-wC7yYoTA9FM-unsplash.jpg");
+		p1.setProductImage("table.jpg");
 		Product p2=new Product("52F23","Canapé","Canapé blanc pour 3 person",6500F);
-		p2.setProductImage("oriol-pascual-aeqfZZeCsG8-unsplash.jpg");
+		p2.setProductImage("pic2.jpg");
 		Product p3=new Product("52DF6","Tapi","tapi gray",3400F);
-		p3.setProductImage("oriol-pascual-aeqfZZeCsG9-unsplash.jpg");
-		/*Product p4=new Product("SD2D5","Table","Table à manger de boi",5600F);
-		p4.setProductImage("/home/fati/java-workspace/e-commerce-storage/target/classes/static/img/oriol-pascual-wC7yYoTA9FM-unsplash (1).jpg");
+		p3.setProductImage("pic3.jpg");
+		Product p4=new Product("SD2D5","Table","Table à manger de boi",5600F);
+		p4.setProductImage("pic4.jpg");
 		Product p5=new Product("A135F","Table","Table à manger de boi",4000F);
-		p5.setProductImage("/home/fati/java-workspace/e-commerce-storage/target/classes/static/img/oriol-pascual-wC7yYoTA9FM-unsplash (1).jpg");
+		p5.setProductImage("pic5.jpg");
 		Product p6=new Product("54F22","Canapé","Canapé blanc pour 3 person",6500F);
-		p6.setProductImage("/home/fati/java-workspace/e-commerce-storage/target/classes/static/img/oriol-pascual-wC7yYoTA9FM-unsplash (1).jpg");
+		p6.setProductImage("pic6.jpg");
 		Product p7=new Product("52DF7","Tapi","tapi gray",3400F);
-		p7.setProductImage("/home/fati/java-workspace/e-commerce-storage/target/classes/static/img/oriol-pascual-wC7yYoTA9FM-unsplash (1).jpg");
+		p7.setProductImage("pic7.jpg");
 		Product p8=new Product("SD2D4","Table","Table à manger de boi",5600F);
-		p8.setProductImage("/home/fati/java-workspace/e-commerce-storage/target/classes/static/img/oriol-pascual-wC7yYoTA9FM-unsplash (1).jpg");
+		p8.setProductImage("pic.jpg");
 		Product p9=new Product("A155F","Table","Table à manger de boi",4000F);
-		p9.setProductImage("/home/fati/java-workspace/e-commerce-storage/target/classes/static/img/oriol-pascual-wC7yYoTA9FM-unsplash (1).jpg");
-		Product p10=new Product("56F24","Canapé","Canapé blanc pour 3 person",6500F);
+		p9.setProductImage("pic1.jpg");
+		/*Product p10=new Product("56F24","Canapé","Canapé blanc pour 3 person",6500F);
 		p10.setProductImage("/home/fati/java-workspace/e-commerce-storage/target/classes/static/img/oriol-pascual-wC7yYoTA9FM-unsplash (1).jpg");
 		Product p11=new Product("52DF9","Tapi","tapi gray",3400F);
 		p11.setProductImage("/home/fati/java-workspace/e-commerce-storage/target/classes/static/img/oriol-pascual-wC7yYoTA9FM-unsplash (1).jpg");
@@ -79,13 +79,13 @@ public class StoreApplication {
 			productRepository.save(p1);
 			productRepository.save(p2);
 			productRepository.save(p3);
-			/*productRepository.save(p4);
+			productRepository.save(p4);
 			productRepository.save(p5);
 			productRepository.save(p6);
 			productRepository.save(p7);
 			productRepository.save(p8);
 			productRepository.save(p9);
-			productRepository.save(p10);
+			/*productRepository.save(p10);
 			productRepository.save(p11);
 			productRepository.save(p12);*/
 

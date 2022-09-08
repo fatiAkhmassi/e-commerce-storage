@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import ma.enset.Store.entities.Location;
 import ma.enset.Store.entities.Product;
 import ma.enset.Store.entities.ProductLocation;
+import ma.enset.Store.entities.ProductLocationId;
 import ma.enset.Store.repositories.LocationRepository;
 import ma.enset.Store.repositories.ProductLocationRepository;
 import ma.enset.Store.repositories.ProductRepository;
@@ -16,12 +17,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.util.ResourceUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -40,6 +43,8 @@ import java.util.List;
 @AllArgsConstructor
 public class ProductController {
     private ProductRepository productRepository;
+    private LocationRepository locationRepository;
+    private ProductLocationRepository productLocationRepository;
     private final Path rootLocation=Paths.get("upload-dir");
     @Autowired
     public void ProductFileCreate() {
@@ -83,10 +88,20 @@ public class ProductController {
     }
 
     @GetMapping("/deleteProduct")
-    public String deleteProduct(Long id,int page,int size,String keyword){
-        //Verification if th location excests in productLocation
+    public ModelAndView deleteProduct(ModelMap model, Long id, int page, int size, String keyword){
+        Product product=productRepository.findById(id).orElse(null);
+        List<Location> locations=locationRepository.findAll();
+        for (Location l : locations){
+            ProductLocationId productLocationId=new ProductLocationId(product,l);
+            ProductLocation productLocation=productLocationRepository.findById(productLocationId).orElse(null);
+            if (productLocation!=null) {
+                String error="You can not delete this product " + product.getRef() + ", this product is already affected to a location " + l.getAdress() + ".";
+                model.addAttribute("error",error);
+                return new ModelAndView("forward:/productionsLocations",model);
+            }
+        }
         productRepository.deleteById(id);
-        return "redirect:/products?page="+page+"&size="+size+"&keyword="+keyword;
+        return  new ModelAndView("redirect:/products?page="+page+"&size="+size+"&keyword="+keyword,model);
     }
 
     @PostMapping("/editProductInfo")
