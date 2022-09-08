@@ -90,7 +90,7 @@ public class ProductController {
     @GetMapping("/deleteProduct")
     public ModelAndView deleteProduct(ModelMap model, Long id, int page, int size, String keyword){
         Product product=productRepository.findById(id).orElse(null);
-        List<Location> locations=locationRepository.findAll();
+        /*List<Location> locations=locationRepository.findAll();
         for (Location l : locations){
             ProductLocationId productLocationId=new ProductLocationId(product,l);
             ProductLocation productLocation=productLocationRepository.findById(productLocationId).orElse(null);
@@ -99,16 +99,37 @@ public class ProductController {
                 model.addAttribute("error",error);
                 return new ModelAndView("forward:/productionsLocations",model);
             }
+        }*/
+        List<ProductLocation> productLocations=productLocationRepository.findByPrimaryKeyProduct(product);
+        System.out.println(productLocations);
+        if(productLocations.size()==0){
+            String error="You can not delete this product " + product.getRef() + ", this product is already affected to at least one location.";
+            model.addAttribute("error",error);
+            return new ModelAndView("forward:/productionsLocations",model);
         }
         productRepository.deleteById(id);
         return  new ModelAndView("redirect:/products?page="+page+"&size="+size+"&keyword="+keyword,model);
     }
 
     @PostMapping("/editProductInfo")
-    public String editProductInfo(@Valid Product product, BindingResult bindingResult,int page,int size,String keyword){
+    public String editProductInfo(@Valid Product product,MultipartFile productImageFile, BindingResult bindingResult,int page,int size,String keyword){
         if(bindingResult.hasErrors()) return "editProduct";
-        productRepository.save(product);
-        return "redirect:/products?page="+page+"&size="+size+"&keyword="+keyword;
+        try {
+            if (productImageFile!=null) {
+                final String imagePath = "upload-dir/"; //path
+                FileOutputStream output = new FileOutputStream(imagePath + productImageFile.getOriginalFilename());
+                output.write(productImageFile.getBytes());
+                product.setProductImage(productImageFile.getOriginalFilename());
+            }
+            Product p=productRepository.findById(product.getId()).orElse(null);
+            product.setProductImage(p.getProductImage());
+            productRepository.save(product);
+
+            return "redirect:/products?page="+page+"&size="+size+"&keyword="+keyword;
+        }
+        catch (Exception e) {
+            throw new RuntimeException("Failed to store file.", e);
+        }
     }
 
     @GetMapping("/formProducts")

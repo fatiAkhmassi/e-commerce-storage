@@ -2,24 +2,16 @@ package ma.enset.Store.web;
 
 import lombok.AllArgsConstructor;
 import ma.enset.Store.entities.Location;
-import ma.enset.Store.entities.Product;
 import ma.enset.Store.entities.ProductLocation;
 import ma.enset.Store.repositories.LocationRepository;
 import ma.enset.Store.repositories.ProductLocationRepository;
-import ma.enset.Store.repositories.ProductRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
 import java.util.List;
 
 @Controller
@@ -27,6 +19,7 @@ import java.util.List;
 public class LocationController {
 
     private LocationRepository locationRepository;
+    private ProductLocationRepository productLocationRepository;
 
     /*locations*/
     @GetMapping("/locations")
@@ -81,5 +74,19 @@ public class LocationController {
         return "redirect:/formLocations";
     }
 
+    @GetMapping("/productsInLocation")
+    public String productsInLocation(Model model, Long id,
+                                     @RequestParam(name="page",defaultValue = "0") int page,
+                                     @RequestParam(name = "size",defaultValue = "3") int size,
+                                     @RequestParam(name = "keyword",defaultValue = "") String keyword){
+        Location location=locationRepository.findById(id).orElse(null);
+        Page <ProductLocation> productLocations = productLocationRepository.findByPrimaryKeyLocation(location,PageRequest.of(page,size));
+        model.addAttribute("products",productLocations.getContent());
+        model.addAttribute("pages",new int[productLocations.getTotalPages()]);
+        model.addAttribute("currentPage",page);
+        model.addAttribute("currentSize",size);
+        model.addAttribute("keyword",keyword);
+        return "productsInLocation";
+    }
 
 }

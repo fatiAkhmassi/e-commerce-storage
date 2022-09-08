@@ -53,7 +53,7 @@
                         </thead>
                         <tbody>
                         <tr th:each="l:${ListLocations}">
-                            <td th:text="${l.adress}"></td>
+                            <td><a th:href="@{productsInLocation(id=${l.id})}" class="link-dark" th:text="${l.adress}"></a></td>
                             <td th:text="${l.region}"></td>
                             <td th:text="${l.ville}"></td>
                             <td th:text="${l.pays}"></td>
