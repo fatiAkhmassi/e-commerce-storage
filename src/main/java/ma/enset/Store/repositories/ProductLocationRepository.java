@@ -15,7 +15,8 @@ import java.util.List;
 @Repository
 public interface ProductLocationRepository extends JpaRepository<ProductLocation, ProductLocationId> {
     Page<ProductLocation> findByPrimaryKeyLocation(Location id, Pageable pageable);
-
+    Page<ProductLocation> findByPrimaryKeyProduct(Product id, Pageable pageable);
     List<ProductLocation> findByPrimaryKeyProduct(Product id);
     List<ProductLocation> findByPrimaryKeyLocation(Location id);
+
 }

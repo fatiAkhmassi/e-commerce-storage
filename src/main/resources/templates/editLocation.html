@@ -26,28 +26,28 @@
             <div class="card-body p-3">
                 <form th:action="@{/editLocationInfo(page=${page},size=${size},keyword=${keyword})}" method="post">
                     <div>
-                        <input type="text" class="form-control mt-2" name="id" th:value="${location.id}" placeholder="Id">
+                        <input type="text" class="form-control mt-3" name="id" th:value="${location.id}" placeholder="Id">
                         <span class="text-danger" th:errors="${location.id}"></span>
                     </div>
                     <div>
-                        <input type="text" class="form-control mt-2" name="adress" th:value="${location.adress}" placeholder="Adress">
+                        <input type="text" class="form-control mt-3" name="adress" th:value="${location.adress}" placeholder="Adress">
                         <span class="text-danger" th:errors="${location.adress}"></span>
                     </div>
                     <div>
-                        <input type="text" class="form-control mt-2" name="region" th:value="${location.region}" placeholder="Region">
+                        <input type="text" class="form-control mt-3" name="region" th:value="${location.region}" placeholder="Region">
                         <span class="text-danger" th:errors="${location.region}"></span>
                     </div>
                     <div>
-                        <input type="text" class="form-control mt-2" name="ville" th:value="${location.ville}" placeholder="City">
+                        <input type="text" class="form-control mt-3" name="ville" th:value="${location.ville}" placeholder="City">
                         <span class="text-danger" th:errors="${location.ville}"></span>
                     </div>
                     <div>
-                        <input type="text" class="form-control mt-2" name="pays" th:value="${location.pays}" placeholder="Country">
+                        <input type="text" class="form-control mt-3" name="pays" th:value="${location.pays}" placeholder="Country">
                         <span class="text-danger" th:errors="${location.pays}"></span>
                     </div>
                     <div class="position-relative">
-                        <button type="submit" class="btn btn-outline-secondary mt-2">Edit</button>
-                        <a type="submit" class="btn btn-dark mt-2" th:href="@{/locations(page=${page},size=${size},keyword=${keyword})}">Cancel</a>
+                        <button type="submit" class="btn btn-outline-secondary mt-3">Edit</button>
+                        <a type="submit" class="btn btn-dark mt-3" th:href="@{/locations(page=${page},size=${size},keyword=${keyword})}">Cancel</a>
                     </div>
                 </form>
             </div>

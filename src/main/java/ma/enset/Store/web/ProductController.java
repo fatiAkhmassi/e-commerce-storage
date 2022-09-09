@@ -64,7 +64,7 @@ public class ProductController {
     @GetMapping("/products")
     public String products(Model model,
                             @RequestParam(name="page",defaultValue = "0") int page,
-                            @RequestParam(name = "size",defaultValue = "3") int size,
+                            @RequestParam(name = "size",defaultValue = "8") int size,
                             @RequestParam(name = "keyword",defaultValue = "") String keyword){
         Page<Product> products = productRepository.findByLabelContainsOrRefContains(keyword,keyword,PageRequest.of(page,size));
         if (products==null) return "index";
@@ -90,19 +90,8 @@ public class ProductController {
     @GetMapping("/deleteProduct")
     public ModelAndView deleteProduct(ModelMap model, Long id, int page, int size, String keyword){
         Product product=productRepository.findById(id).orElse(null);
-        /*List<Location> locations=locationRepository.findAll();
-        for (Location l : locations){
-            ProductLocationId productLocationId=new ProductLocationId(product,l);
-            ProductLocation productLocation=productLocationRepository.findById(productLocationId).orElse(null);
-            if (productLocation!=null) {
-                String error="You can not delete this product " + product.getRef() + ", this product is already affected to a location " + l.getAdress() + ".";
-                model.addAttribute("error",error);
-                return new ModelAndView("forward:/productionsLocations",model);
-            }
-        }*/
         List<ProductLocation> productLocations=productLocationRepository.findByPrimaryKeyProduct(product);
-        System.out.println(productLocations);
-        if(productLocations.size()==0){
+        if(productLocations.size()!=0){
             String error="You can not delete this product " + product.getRef() + ", this product is already affected to at least one location.";
             model.addAttribute("error",error);
             return new ModelAndView("forward:/productionsLocations",model);
@@ -167,4 +156,24 @@ public class ProductController {
             throw new RuntimeException(e);
         }
     }
+
+    @GetMapping("/locationsOfProduct")
+    public String locationsOfProduct(Model model,Long id,
+                           @RequestParam(name="page",defaultValue = "0") int page,
+                           @RequestParam(name = "size",defaultValue = "8") int size,
+                           @RequestParam(name = "keyword",defaultValue = "") String keyword){
+        Product product=productRepository.findById(id).orElse(null);
+        Page<ProductLocation> productLocations = productLocationRepository.findByPrimaryKeyProduct(product,PageRequest.of(page,size));
+        model.addAttribute("product",product);
+        model.addAttribute("locations",productLocations.getContent());
+        model.addAttribute("pages",new int[productLocations.getTotalPages()]);
+        model.addAttribute("currentPage",page);
+        model.addAttribute("currentSize",size);
+        model.addAttribute("keyword",keyword);
+        return "locationsOfProduct";
+    }
 }
+
+
+
+

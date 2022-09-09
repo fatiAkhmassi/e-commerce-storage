@@ -26,28 +26,28 @@
             <div class="card-body p-3">
                 <form th:action="@{/saveProducts}" method="post" enctype="multipart/form-data">
                     <div>
-                        <input type="text" class="form-control mt-2" name="ref" th:value="${product.ref}" placeholder="Reference">
+                        <input type="text" class="form-control mt-3" name="ref" th:value="${product.ref}" placeholder="Reference">
                         <span class="text-danger" th:errors="${product.ref}"></span>
                     </div>
                     <div>
-                        <input type="text" class="form-control mt-2" name="label" th:value="${product.label}" placeholder="Label">
+                        <input type="text" class="form-control mt-3" name="label" th:value="${product.label}" placeholder="Label">
                         <span class="text-danger" th:errors="${product.label}"></span>
                     </div>
                     <div>
-                        <input type="text" class="form-control mt-2" name="description" th:value="${product.description}" placeholder="description">
+                        <input type="text" class="form-control mt-3" name="description" th:value="${product.description}" placeholder="description">
                         <span class="text-danger" th:errors="${product.description}"></span>
                     </div>
                     <div>
-                        <input type="text" class="form-control mt-2" name="price" th:value="${product.price}" placeholder="price">
+                        <input type="text" class="form-control mt-3" name="price" th:value="${product.price}" placeholder="price">
                         <span class="text-danger" th:errors="${product.price}"></span>
                     </div>
                     <div>
-                        <input type="file" class="form-control mt-2" name="productImageFile">
+                        <input type="file" class="form-control mt-3" name="productImageFile">
                         <span class="text-danger" th:errors="${product.productImage}"></span>
                     </div>
                     <div class="position-relative">
-                        <button type="submit" class="btn btn-outline-secondary mt-2">Save</button>
-                        <a class="btn btn-dark mt-2" th:href="@{/products(page=${page},size=${size},keyword=${keyword})}">Cancel</a>
+                        <button type="submit" class="btn btn-outline-secondary mt-3">Save</button>
+                        <a class="btn btn-dark mt-3" th:href="@{/products(page=${page},size=${size},keyword=${keyword})}">Cancel</a>
                     </div>
                 </form>
             </div>

@@ -26,30 +26,30 @@
             <div class="card-body p-3">
                 <form th:action="@{/saveProductsLocation}" method="post">
                     <div>
-                        <select class="form-select mt-2" name="product">
+                        <select class="form-select mt-3" name="product">
                             <option class="text-secondary">Select product reference</option>
                             <option th:each="p:${listProduct}" th:value="${p.id}" th:text="${p.ref}"></option>
                         </select>
 <!--                        <span class="text-danger" th:errors="${productLocation.product}"></span>-->
                     </div>
                     <div>
-                        <select class="form-select mt-2" name="location">
+                        <select class="form-select mt-3" name="location">
                             <option class="text-secondary">Select location id</option>
                             <option th:each="l:${listLocation}" th:value="${l.id}" th:text="${l.adress}"></option>
                         </select>
 <!--                        <span class="text-danger" th:errors="${productLocation.location}"></span>-->
                     </div>
                     <div>
-                        <input type="text" class="form-control mt-2" name="qte" placeholder="Quantite">
+                        <input type="text" class="form-control mt-3" name="qte" placeholder="Quantite">
 <!--                        <span class="text-danger" th:errors="${productLocation.quantite}"></span>-->
                     </div>
                     <div>
-                        <input type="date" class="form-control mt-2" name="dateLastModified" placeholder="Last Modified">
+                        <input type="date" class="form-control mt-3" name="dateLastModified" placeholder="Last Modified">
 <!--                        <span class="text-danger" th:errors="${productLocation.dateLastModified}"></span>-->
                     </div>
                     <div class="position-relative">
-                        <button type="submit" class="btn btn-outline-secondary mt-2">Save</button>
-                        <a class="btn btn-dark mt-2" th:href="@{/products(page=${page},size=${size},keyword=${keyword})}">Cancel</a>
+                        <button type="submit" class="btn btn-outline-secondary mt-3">Save</button>
+                        <a class="btn btn-dark mt-3" th:href="@{/products(page=${page},size=${size},keyword=${keyword})}">Cancel</a>
                     </div>
                 </form>
             </div>

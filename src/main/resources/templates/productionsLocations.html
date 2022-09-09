@@ -53,7 +53,7 @@
             <div th:class="${error==null?'clear-msg':'error-msg'}"><p th:text="${error}"></p></div>
             <!--Cancel button   ################################################################################-->
             <div class="card mt-2">
-                <div class="card-header text-dark">List of Localisations</div>
+                <div class="card-header text-dark">List of Products Localisations</div>
                 <div class="card-body">
                     <Table class="table">
                         <thead>
@@ -69,7 +69,7 @@
                         </thead>
                         <tbody>
                         <tr th:each="l:${listProductLocations}">
-                            <td th:text="${l.primaryKey.product.ref}" style="font-weight: bold;color: #3a3a3a;"></td>
+                            <td style="font-weight: bold;color: #3a3a3a;"><a th:href="@{locationsOfProduct(id=${l.primaryKey.product.id})}" class="link-dark" th:text="${l.primaryKey.product.ref}"></a></td>
                             <td th:text="${l.primaryKey.product.label}"></td>
                             <td th:text="${l.primaryKey.product.description}"></td>
                             <td th:text="${l.primaryKey.product.price}" style="font-weight: bold;color: #3a3a3a;"></td>
@@ -100,7 +100,7 @@
             </div>
             <ul class="nav nav-pills mt-5">
                 <li th:each="page,status:${pages}">
-                    <a th:class="${status.index==currentPage?'btn btn-secondary ms-1':'btn btn-outline-secondary ms-1'}"
+                    <a th:class="${status.index==currentPage?'btn btn-dark ms-1':'btn btn-outline-dark ms-1'}"
                        th:href="@{productionsLocations(page=${status.index},size=${currentSize},keyword=${keyword})}"
                        th:text="${status.index}">
                     </a>

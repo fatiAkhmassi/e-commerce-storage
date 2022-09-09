@@ -9,8 +9,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
 import javax.validation.Valid;
 import java.util.List;
 
@@ -37,10 +40,16 @@ public class LocationController {
     }
 
     @GetMapping("/deleteLocation")
-    public String deleteLocation(Long id,int page,int size,String keyword){
-        //Verification if th location excests in productLocation
+    public ModelAndView deleteLocation(ModelMap model, Long id, int page, int size, String keyword){
+        Location location=locationRepository.findById(id).orElse(null);
+        List<ProductLocation> productLocations=productLocationRepository.findByPrimaryKeyLocation(location);
+        if (productLocations.size()!=0){
+            String error="You can not delete the Location "+location.getAdress()+", this location has Products";
+            model.addAttribute("error",error);
+            return new ModelAndView("forward:/productionsLocations",model);
+        }
         locationRepository.deleteById(id);
-        return "redirect:/locations?page="+page+"&size="+size+"&keyword="+keyword;
+        return new ModelAndView("redirect:/locations?page="+page+"&size="+size+"&keyword="+keyword);
     }
 
     @GetMapping("/editLocation")
