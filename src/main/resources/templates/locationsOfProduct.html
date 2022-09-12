@@ -27,12 +27,10 @@
                     <div class="card shadow-sm mx-auto">
                         <img th:src="'http://localhost:8085/files/' + ${product.productImage}" class="bd-placeholder-img card-img-top" width="100%" height="225" alt="">
                         <div class="card-body">
-                            <h6 class="text-dark" th:text="${product.label}" style="font-size: 13px;"></h6>
-                            <h6 class="text-dark" th:text="${product.ref}" style="font-size: 13px;"></h6>
-                            <p class="text-dark" th:text="${product.description}" style="font-size: 13px;"></p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <small><h6 class="text-dark" style="font-size: 13px;" th:text="${product.price}+' DH'"></h6></small>
-                            </div>
+                            <h6 class="mb-0" th:text="${product.ref}" style="font-size: 12px;"></h6>
+                            <h6 class="mb-0" th:text="${product.label}" style="font-size: 12px;"></h6>
+                            <p class="mb-0" th:text="${product.description}" style="font-size: 12px;"></p>
+                            <b><p th:text="${product.price}+' DH'"  style="font-size: 12px;"></p></b>
                         </div>
                     </div>
                 </div>

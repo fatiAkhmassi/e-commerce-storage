@@ -20,12 +20,12 @@
 </head>
 <body>
 <div layout:fragment="content1">
-    <div class="d-flex p-3 mx-auto flex-column" style="width: 70%!important;">
+    <div class="d-flex p-3 mx-auto flex-column container">
         <div class="cover-container d-flex flex-column" style="width: 25%!important;">
             <header class="mb-auto">
                 <form method="get" th:action="@{products}">
                     <div class="input-group">
-                        <input type="search" class="form-control rounded" name="keyword" th:value="${keyword}" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                        <input type="search" class="form-control " name="keyword" th:value="${keyword}" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
                         <button type="submit" class="btn btn-outline-secondary">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
@@ -37,7 +37,7 @@
             </header>
         </div>
     </div>
-    <div class="album py-2 mx-auto " style="width: 70%!important;">
+    <div class="album py-2 mx-auto " style="width: 90%!important;">
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
                 <div class="col" th:each="p:${ListProducts}">
@@ -46,15 +46,13 @@
                             <img th:src="'http://localhost:8085/files/' + ${p.productImage}" class="bd-placeholder-img card-img-top" width="100%" height="225" alt="">
                         </a>
                         <div class="card-body">
-                            <h6 class="text-dark" th:text="${p.label}" style="font-size: 13px;"></h6>
-                            <h6 class="text-dark" th:text="${p.ref}" style="font-size: 13px;"></h6>
-                            <p class="text-dark" th:text="${p.description}" style="font-size: 13px;"></p>
+                            <p class="mb-0" th:text="${p.description}" style="font-size: 12px;"></p>
+                            <b><p  th:text="${p.price}+' DH'"  style="font-size: 12px;"></p></b>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a onclick="return confirm('Are you sure you want to delete this product?')" class="btn btn-sm btn-outline-secondary" th:href="@{deleteProduct(id=${p.id},page=${currentPage},size=${currentSize},keyword=${keyword})}">Delete</a>
-                                    <a class="btn btn-sm btn-outline-secondary" th:href="@{/editProduct(id=${p.id},page=${currentPage},size=${currentSize},keyword=${keyword})}">Edit</a>
+                                    <a onclick="return confirm('Are you sure you want to delete this product?')" class="btn btn-p btn-outline-secondary mt-2" th:href="@{deleteProduct(id=${p.id},page=${currentPage},size=${currentSize},keyword=${keyword})}">Delete</a>
+                                    <a class="btn btn-p btn-outline-secondary mt-2" th:href="@{/editProduct(id=${p.id},page=${currentPage},size=${currentSize},keyword=${keyword})}">Edit</a>
                                 </div>
-                                <small><h6 class="text-dark" style="font-size: 13px;" th:text="${p.price}+' DH'"></h6></small>
                             </div>
                         </div>
                     </div>

@@ -16,22 +16,11 @@
     <!-- Custom styles for this template -->
     <link rel="stylesheet" type="text/css"  href="../static/css/cover.css" th:href="@{/css/cover.css}">
     <script src="/webjars/bootstrap/5.1.3/js/bootstrap.bundle.js"></script>
-    <style>
-        .error-msg{
-            background: #b11e1e;
-            color: white;
-            font-size: smaller;
-            padding: 0.7%
-        }
-        .clear-msg{
-            background: #fff;
-        }
-    </style>
 
 </head>
 <body>
 <div layout:fragment="content1">
-    <div class="d-flex p-3 mx-auto flex-column" style="width: 70%!important;">
+    <div class="d-flex p-3 mx-auto flex-column container">
         <div class="cover-container d-flex flex-column" style="width: 25%!important;">
             <header class="mb-auto">
                 <form method="get" th:action="@{locations}">
@@ -69,12 +58,12 @@
                         </thead>
                         <tbody>
                         <tr th:each="l:${listProductLocations}">
-                            <td style="font-weight: bold;color: #3a3a3a;"><a th:href="@{locationsOfProduct(id=${l.primaryKey.product.id})}" class="link-dark" th:text="${l.primaryKey.product.ref}"></a></td>
+                            <td class="td-bold-font"><a th:href="@{locationsOfProduct(id=${l.primaryKey.product.id})}" class="link-dark" th:text="${l.primaryKey.product.ref}"></a></td>
                             <td th:text="${l.primaryKey.product.label}"></td>
                             <td th:text="${l.primaryKey.product.description}"></td>
-                            <td th:text="${l.primaryKey.product.price}" style="font-weight: bold;color: #3a3a3a;"></td>
-                            <td style="font-weight: bold;color: #3a3a3a;"><a th:href="@{productsInLocation(id=${l.primaryKey.location.id})}" class="link-dark" th:text="${l.primaryKey.location.adress}"></a></td>
-                            <td th:text="${l.quantite}" style="font-weight: bold;color: #3a3a3a;"></td>
+                            <td th:text="${l.primaryKey.product.price}" class="td-bold-font"></td>
+                            <td class="td-bold-font"><a th:href="@{productsInLocation(id=${l.primaryKey.location.id})}" class="link-dark" th:text="${l.primaryKey.location.adress}"></a></td>
+                            <td th:text="${l.quantite}" class="td-bold-font"></td>
                             <td th:text="${l.dateLastModified}"></td>
                             <td>
                                 <a type="button" class="btn btn-outline-secondary" th:href="@{editProductsLocation(productId=${l.primaryKey.product.id},locationId=${l.primaryKey.location.id},page=${currentPage},size=${currentSize},keyword=${keyword})}">
