@@ -2,9 +2,12 @@ package ma.enset.Store.web;
 
 import lombok.AllArgsConstructor;
 import ma.enset.Store.entities.Location;
+import ma.enset.Store.entities.Product;
 import ma.enset.Store.entities.ProductLocation;
+import ma.enset.Store.entities.ProductLocationId;
 import ma.enset.Store.repositories.LocationRepository;
 import ma.enset.Store.repositories.ProductLocationRepository;
+import ma.enset.Store.repositories.ProductRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -23,6 +26,7 @@ public class LocationController {
 
     private LocationRepository locationRepository;
     private ProductLocationRepository productLocationRepository;
+    private ProductRepository productRepository;
 
     /*locations*/
     @GetMapping("/locations")
@@ -98,4 +102,12 @@ public class LocationController {
         return "productsInLocation";
     }
 
+    @GetMapping("/deleteproductInLocation")
+    public String deleteProductLocation(Long productId,long locationId,int page,int size,String keyword){
+        Product product=productRepository.findById(productId).orElse(null);
+        Location location=locationRepository.findById(locationId).orElse(null);
+        ProductLocationId productLocationId=new ProductLocationId(product,location);
+        productLocationRepository.deleteById(productLocationId);
+        return "redirect:/productsInLocation?id="+locationId+"&page="+page+"&size="+size+"&keyword="+keyword;
+    }
 }

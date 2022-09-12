@@ -172,6 +172,15 @@ public class ProductController {
         model.addAttribute("keyword",keyword);
         return "locationsOfProduct";
     }
+
+    @GetMapping("/deleteLocationOfProduct")
+    public String deleteProductLocation(Long productId,long locationId,int page,int size,String keyword){
+        Product product=productRepository.findById(productId).orElse(null);
+        Location location=locationRepository.findById(locationId).orElse(null);
+        ProductLocationId productLocationId=new ProductLocationId(product,location);
+        productLocationRepository.deleteById(productLocationId);
+        return "redirect:/locationsOfProduct?id="+productId+"&page="+page+"&size="+size+"&keyword="+keyword;
+    }
 }
 
 

@@ -21,7 +21,7 @@
 <body>
 <div layout:fragment="content1">
     <div class="d-flex p-3 mx-auto flex-column" style="width: 70%!important;">
-        <div class="cover-container d-flex flex-column" style="width: 33%!important;">
+        <div class="cover-container d-flex flex-column" style="width: 25%!important;">
             <header class="mb-auto">
                 <form method="get" th:action="@{products}">
                     <div class="input-group">
@@ -49,8 +49,7 @@
                             <p class="text-dark" th:text="${p.primaryKey.product.description}" style="font-size: 13px;"></p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a onclick="return confirm('Are you sure you want to delete this product?')" class="btn btn-sm btn-outline-secondary" th:href="@{deleteProduct(id=${p.primaryKey.product.id},page=${currentPage},size=${currentSize},keyword=${keyword})}">Delete</a>
-                                    <a class="btn btn-sm btn-outline-secondary" th:href="@{/editProduct(id=${p.primaryKey.product.id},page=${currentPage},size=${currentSize},keyword=${keyword})}">Edit</a>
+                                    <a onclick="return confirm('Are you sure you want to delete this Product from this Location?')" class="btn btn-sm btn-outline-secondary" th:href="@{deleteproductInLocation(productId=${p.primaryKey.product.id},locationId=${p.primaryKey.location.id},page=${currentPage},page=${currentPage},size=${currentSize},keyword=${keyword})}">Delete</a>
                                 </div>
                                 <small><h6 class="text-dark" style="font-size: 13px;" th:text="${p.primaryKey.product.price}+' DH'"></h6></small>
                             </div>
