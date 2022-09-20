@@ -34,7 +34,7 @@
                     </div>
                     <div>
                         <select class="form-select mt-3" name="location">
-                            <option class="text-secondary">Select location id</option>
+                            <option class="text-secondary">Select location adress</option>
                             <option th:each="l:${listLocation}" th:value="${l.id}" th:text="${l.adress}"></option>
                         </select>
 <!--                        <span class="text-danger" th:errors="${productLocation.location}"></span>-->

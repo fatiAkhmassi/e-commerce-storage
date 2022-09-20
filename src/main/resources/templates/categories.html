@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="template1">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.84.0">
+    <title>Storage</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/cover/">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+    <!-- Custom styles for this template -->
+    <script src="/webjars/bootstrap/5.1.3/js/bootstrap.bundle.js"></script>
+    <link rel="stylesheet" type="text/css"  href="../static/css/cover.css" th:href="@{/css/cover.css}">
+
+    <style>
+    .p-cat{
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        text-align: center;
+        color: white;
+        font-weight: bolder;
+        font-size: 16px;
+        top: 0;
+        padding-top: 30%;
+    }
+    .p-cat:hover{
+        background: #967e66;
+        opacity: 0.3;
+    }
+    </style>
+
+</head>
+<body>
+<div layout:fragment="content1">
+    <div class="album py-2 mx-auto " style="width: 90%!important;">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                <div class="col" th:each="c:${ListCategories}">
+                    <div class="card shadow-sm">
+                        <a class="btn-cat" th:href="@{products(cat=${c.id})}">
+                            <img th:src="'http://localhost:8085/files/' + ${c.CategorieImage}" class="bd-placeholder-img card-img-top" width="100%" height="225" alt="">
+                            <p class="p-cat" th:text="${c.description}"></p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+
+

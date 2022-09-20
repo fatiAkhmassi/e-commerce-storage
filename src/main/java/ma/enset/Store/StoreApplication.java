@@ -1,8 +1,10 @@
 package ma.enset.Store;
 
+import ma.enset.Store.entities.Categorie;
 import ma.enset.Store.entities.Location;
 import ma.enset.Store.entities.Product;
 import ma.enset.Store.entities.ProductLocation;
+import ma.enset.Store.repositories.CategorieRepository;
 import ma.enset.Store.repositories.LocationRepository;
 import ma.enset.Store.repositories.ProductLocationRepository;
 import ma.enset.Store.repositories.ProductRepository;
@@ -24,32 +26,46 @@ public class StoreApplication {
 		SpringApplication.run(StoreApplication.class, args);
 	}
 
-	/*@Bean
-	ServletRegistrationBean h2ServletRegistration(){
-		ServletRegistrationBean registrationBean=
-				new ServletRegistrationBean(new WebdavServlet());
-		registrationBean.addUrlMappings("/h2-console/*");
-		return registrationBean;
-	}*/
 	@Bean
-	CommandLineRunner commandLineRunner(ProductRepository productRepository,LocationRepository locationRepository,ProductLocationRepository productLocationRepository){
-		Product p1=new Product("A125F","Table","Table à manger de boi",4000F);
+	CommandLineRunner commandLineRunner(CategorieRepository categorieRepository,ProductRepository productRepository,LocationRepository locationRepository,ProductLocationRepository productLocationRepository){
+		Categorie c1=new Categorie("Tables","Table a manger,coffe,corner");
+		c1.setCategorieImage("lr.jpg");
+		Categorie c2=new Categorie("Canape","Canape for the living room");
+		c2.setCategorieImage("canape.jpg");
+		Categorie c3=new Categorie("Decoration","Decorations for all the rooms");
+		c3.setCategorieImage("deco.jpg");
+		Categorie c4=new Categorie("Path Room","Path Room Accesories & Decorations");
+		c4.setCategorieImage("br.jpg");
+		Categorie c5=new Categorie("Bed Room","Bed Room Fournitures");
+		c5.setCategorieImage("bedr.jpg");
+		Categorie c6=new Categorie("Kitchen","Kitchen suplies & Tools");
+		c6.setCategorieImage("kitchen.jpg");
+
+		categorieRepository.save(c1);
+		categorieRepository.save(c2);
+		categorieRepository.save(c3);
+		categorieRepository.save(c4);
+		categorieRepository.save(c5);
+		categorieRepository.save(c6);
+
+
+		Product p1=new Product("A125F","Table","Table à manger de boi",4000F,c1);
 		p1.setProductImage("table.jpg");
-		Product p2=new Product("52F23","Canapé","Canapé blanc pour 3 person",6500F);
+		Product p2=new Product("52F23","Canapé","Canapé blanc pour 3 person",6500F,c1);
 		p2.setProductImage("pic2.jpg");
-		Product p3=new Product("52DF6","Tapi","tapi gray",3400F);
+		Product p3=new Product("52DF6","Tapi","tapi gray",3400F,c2);
 		p3.setProductImage("pic3.jpg");
-		Product p4=new Product("SD2D5","Table","Table à manger de boi",5600F);
+		Product p4=new Product("SD2D5","Table","Table à manger de boi",5600F,c2);
 		p4.setProductImage("pic4.jpg");
-		Product p5=new Product("A135F","Table","Table à manger de boi",4000F);
+		Product p5=new Product("A135F","Table","Table à manger de boi",4000F,c3);
 		p5.setProductImage("pic5.jpg");
-		Product p6=new Product("54F22","Canapé","Canapé blanc pour 3 person",6500F);
+		Product p6=new Product("54F22","Canapé","Canapé blanc pour 3 person",6500F,c3);
 		p6.setProductImage("pic6.jpg");
-		Product p7=new Product("52DF7","Tapi","tapi gray",3400F);
+		Product p7=new Product("52DF7","Tapi","tapi gray",3400F,c4);
 		p7.setProductImage("pic7.jpg");
-		Product p8=new Product("SD2D4","Table","Table à manger de boi",5600F);
+		Product p8=new Product("SD2D4","Table","Table à manger de boi",5600F,c5);
 		p8.setProductImage("pic.jpg");
-		Product p9=new Product("A155F","Table","Table à manger de boi",4000F);
+		Product p9=new Product("A155F","Table","Table à manger de boi",4000F,c6);
 		p9.setProductImage("pic1.jpg");
 		/*Product p10=new Product("56F24","Canapé","Canapé blanc pour 3 person",6500F);
 		p10.setProductImage("/home/fati/java-workspace/e-commerce-storage/target/classes/static/img/oriol-pascual-wC7yYoTA9FM-unsplash (1).jpg");
@@ -72,6 +88,8 @@ public class StoreApplication {
 		ProductLocation pl2=new ProductLocation(p2,l2,320F,new Date());
 		ProductLocation pl3=new ProductLocation(p2,l6,410F,new Date());
 		ProductLocation pl4=new ProductLocation(p2,l5,20F,new Date());
+
+
 
 
 		return args -> {

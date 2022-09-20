@@ -24,7 +24,7 @@
         <div class="card">
             <div class="card-header text-dark">Detailes product</div>
             <div class="card-body p-3">
-                <form th:action="@{/editProductInfo(page=${page},size=${size},keyword=${keyword})}" method="post">
+                <form th:action="@{/editProductInfo(cat=${product.categorie.id},page=${page},size=${size},keyword=${keyword})}" method="post">
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-2">
                         <div class="col mt-2" style="width: 35%;">
                             <div>
@@ -46,6 +46,13 @@
                             <div>
                                 <input type="text" class="form-control mt-3" name="price" th:value="${product.price}" width="25%" placeholder="price">
                                 <span class="text-danger" th:errors="${product.price}"></span>
+                            </div>
+                            <div>
+                                <select class="form-select mt-3" name="categorie">
+                                    <option class="text-secondary">Select categorie label</option>
+                                    <option th:each="c:${categories}" th:value="${c.id}" th:text="${c.label}" th:selected="${c.id==product.categorie.id}"></option>
+                                </select>
+                                <!--<span class="text-danger" th:errors="${productLocation.location}"></span>-->
                             </div>
                             <div>
                                 <input type="file" class="form-control mt-3" name="productImageFile">

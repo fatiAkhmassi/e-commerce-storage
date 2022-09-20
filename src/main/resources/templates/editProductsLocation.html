@@ -22,16 +22,22 @@
 <div layout:fragment="content1">
     <div class="container">
         <div class="card">
-            <div class="card-header text-dark">Ass new products</div>
+            <div class="card-header text-dark">Add new product in location</div>
             <div class="card-body p-3">
                 <form th:action="@{/editProductsLocationInfo(page=${page},size=${size},keyword=${keyword})}" method="post">
                     <div>
-                        <input type="text" class="form-control mt-3" name="product" th:value="${productLocation.primaryKey.product.id}" placeholder="Product">
-                        <span class="text-danger" th:errors="${productLocation.product}"></span>
+                        <select class="form-select mt-3" name="product">
+                            <option class="text-secondary">Select product reference</option>
+                            <option th:each="p:${listProduct}" th:value="${p.id}" th:text="${p.ref}" th:selected="${p.id==productLocation.primaryKey.product.id}"></option>
+                        </select>
+                        <!--<span class="text-danger" th:errors="${productLocation.primaryKey.product.id}"></span>-->
                     </div>
                     <div>
-                        <input type="text" class="form-control mt-3" name="location" th:value="${productLocation.primaryKey.location.id}" placeholder="Location">
-                       <span class="text-danger" th:errors="${productLocation.location}"></span>
+                        <select class="form-select mt-3" name="location">
+                            <option class="text-secondary">Select location adress</option>
+                            <option th:each="l:${listLocation}" th:value="${l.id}" th:text="${l.adress}" th:selected="${l.id==productLocation.primaryKey.location.id}"></option>
+                        </select>
+                        <!--                        <span class="text-danger" th:errors="${productLocation.location}"></span>-->
                     </div>
                     <div>
                         <input type="text" class="form-control mt-3" name="qte" th:value="${productLocation.quantite}" placeholder="Quantite">

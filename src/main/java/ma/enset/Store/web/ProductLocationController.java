@@ -67,13 +67,15 @@ public class ProductLocationController {
 
     @GetMapping("/editProductsLocation")
     public String editProductsLocation(Model model,Long productId,long locationId,int page,int size,String keyword){
-        Product product=productRepository.findById(productId).orElse(null);
-        Location location=locationRepository.findById(locationId).orElse(null);
-        ProductLocationId productLocationId=new ProductLocationId(product,location);
+        Product listProduct=productRepository.findById(productId).orElse(null);
+        Location listLocation=locationRepository.findById(locationId).orElse(null);
+        ProductLocationId productLocationId=new ProductLocationId(listProduct,listLocation);
 
         ProductLocation productLocation=productLocationRepository.findById(productLocationId).orElse(null);
         if (productLocation==null) throw  new RuntimeException("Product not found in this location");
         model.addAttribute("productLocation",productLocation);
+        model.addAttribute("listLocation",listLocation);
+        model.addAttribute("listProduct",listProduct);
         model.addAttribute("page",page);
         model.addAttribute("size",size);
         model.addAttribute("keyword",keyword);

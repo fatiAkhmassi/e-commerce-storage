@@ -42,7 +42,7 @@
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
                 <div class="col" th:each="p:${ListProducts}">
                     <div class="card shadow-sm">
-                        <a th:href="@{locationsOfProduct(id=${p.id})}">
+                        <a th:href="@{locationsOfProduct(id=${p.id},cat=${p.categorie.id})}">
                             <img th:src="'http://localhost:8085/files/' + ${p.productImage}" class="bd-placeholder-img card-img-top" width="100%" height="225" alt="">
                         </a>
                         <div class="card-body">
@@ -50,7 +50,7 @@
                             <b><p  th:text="${p.price}+' DH'"  style="font-size: 12px;"></p></b>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a onclick="return confirm('Are you sure you want to delete this product?')" class="btn btn-p btn-outline-secondary mt-2" th:href="@{deleteProduct(id=${p.id},page=${currentPage},size=${currentSize},keyword=${keyword})}">Delete</a>
+                                    <a onclick="return confirm('Are you sure you want to delete this product?')" class="btn btn-p btn-outline-secondary mt-2" th:href="@{deleteProduct(id=${p.id},cat=${p.categorie.id},page=${currentPage},size=${currentSize},keyword=${keyword})}">Delete</a>
                                     <a class="btn btn-p btn-outline-secondary mt-2" th:href="@{/editProduct(id=${p.id},page=${currentPage},size=${currentSize},keyword=${keyword})}">Edit</a>
                                 </div>
                             </div>
@@ -61,7 +61,7 @@
             <ul class="nav nav-pills mt-5">
                 <li th:each="page,status:${pages}">
                     <a th:class="${status.index==currentPage?'btn btn-dark ms-1':'btn btn-outline-dark ms-1'}"
-                       th:href="@{products(page=${status.index},size=${currentSize},keyword=${keyword})}"
+                       th:href="@{products(cat=${cat},page=${status.index},size=${currentSize},keyword=${keyword})}"
                        th:text="${status.index}">
                     </a>
                 </li>

@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -19,45 +18,33 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Product implements Serializable {
+public class Categorie implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "PRODUCT_ID")
+    @Column(name = "CATEGORIE_ID")
     private Long id;
 
-    @NotEmpty
     @Column(unique = true)
-    private String ref;
-
     @NotEmpty
     private String label;
 
     @Size(min = 3,max = 100)
     private String description;
 
-    @DecimalMin("1")
-    private Float price;
 
-    private String productImage;
+    private String CategorieImage;
 
-    @Transient
     @JsonIgnore
-    @OneToMany(mappedBy = "primaryKey.product",
+    @OneToMany(mappedBy = "categorie", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
-    private Set<ProductLocation> productLocations=new HashSet<>();
+    private Set<Product> products=new HashSet<>();
 
-    public void addProductLocation(ProductLocation productLocation){
-        this.productLocations.add(productLocation);
+    public void addProduct(Product product){
+        this.products.add(product);
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "CATEGORIE_ID", nullable = false)
-    private Categorie categorie;
 
-    public Product(String ref, String label, String description, Float price,Categorie categorie) {
-        this.ref = ref;
+    public Categorie(String label, String description) {
         this.label = label;
         this.description = description;
-        this.price = price;
-        this.categorie=categorie;
     }
 }
